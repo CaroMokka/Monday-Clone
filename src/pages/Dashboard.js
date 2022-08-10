@@ -1,51 +1,47 @@
 import React from 'react'
-import { useState, useEffect, useContext} from 'react'
-import axios from 'axios'
 //components
 import TicketCard from '../components/TicketCard'
-//contexto
-import CategoriesContext from '../context'
 
 const Dashboard = () => {
-    const [tickets, setTickets] = useState(null)
-    console.log(tickets)
-    const { categories, setCategories } = useContext(CategoriesContext)
 
-    useEffect(() => {
-        async function fetchData() {
-            const response = await axios.get('http://localhost:8000/tickets')
-            const dataObject = response.data.data
-            const arrayOfKeys = Object.keys(dataObject)
-            const arrayOfData = Object.keys(dataObject).map((key) => dataObject[key])
-
-            const formattedArray = []
-            arrayOfKeys.forEach((key, index) => {
-            const formattedData = { ...arrayOfData[index] }
-            formattedData['documentId'] = key
-            formattedArray.push(formattedData)
-
-            //console.log(formattedArray)
-            setTickets(formattedArray)
-            })
+    const tickets = [
+        {
+            category: 'Q1 2022',
+            color: 'red',
+            title: 'jojojojo',
+            owner: 'carola',
+            avatar: '',
+            status: 'done',
+            priority: '5',
+            progress: '40',
+            description: 'exercises freeCodeCamp',
+            timestamp: ''
+        },
+        {
+            category: 'Q2 2022',
+            color: 'red',
+            title: 'dxxddxddxd',
+            owner: 'carola',
+            avatar: '',
+            status: 'working on it',
+            priority: '2',
+            progress: '70',
+            description: '',
+            timestamp: '2022-02-15T07:36:17+0000'
+        },
+        {
+            category: 'Q2 2022',
+            color: 'blue',
+            title: 'huhuhuhuhu',
+            owner: 'carola',
+            avatar: '',
+            status: 'working on it',
+            priority: '3',
+            progress: '10',
+            description: '',
+            timestamp: '2022-02-12T07:36:17+0000'
         }
-        fetchData()
-        
-    },[])
-
-    console.log(tickets)    
-    useEffect(() => {
-        setCategories(
-            [
-                ...new Set( tickets?.map( ({ category })  => category ) )
-        ]
-        
-        )
-        
-        
-    },[tickets, setCategories])
-
-    console.log(categories)
-
+    ]
 
     const colors = [
         'rgb(255,179,186)',
@@ -55,12 +51,8 @@ const Dashboard = () => {
         'rgb(186,255,255)'
     ]
 
-    const uniqueCategories = [
-        ...new Set(tickets?.map(({ category }) => category))
-    ]
-
+    const uniqueCategories = [...new Set(tickets?.map(({category})=> category))]
     console.log(uniqueCategories)
-
 
     return (
         <div className='dashboard'>
@@ -69,14 +61,14 @@ const Dashboard = () => {
                 {tickets && uniqueCategories?.map((uniqueCategory, indexCategory) => (
                     <div key={indexCategory}>
                         <h3>{uniqueCategory}</h3>
-                        {tickets.filter(ticket => ticket.category === uniqueCategory).map((filteredTicket, _index) =>
-                            <TicketCard
-                                id={_index}
-                                color={colors[indexCategory] || colors[0]}
-                                ticket={filteredTicket}
+                        {tickets.filter(ticket => ticket.category === uniqueCategory).map((filteredTicket, _index) => 
+                        <TicketCard
+                            id={_index}
+                            color={colors[indexCategory] || colors[0]}
+                            ticket={filteredTicket}
 
-                            />)
-
+                        />)
+                        
                         }
                     </div>
                 ))}
@@ -86,12 +78,3 @@ const Dashboard = () => {
 }
 
 export default Dashboard
-
-
-
-
-
-
-
-
-
