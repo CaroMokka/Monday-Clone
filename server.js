@@ -8,8 +8,8 @@ const app = express()
 app.use(cors())
 app.use(express.json())
 
-const url = '...'
-const token = '...'
+const url = ''
+const token = ''
 
 app.get('/tickets', async (req, res) => {
     const options = {

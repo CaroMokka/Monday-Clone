@@ -1,7 +1,5 @@
 import React from 'react'
 import { useState } from 'react'
-import axios from 'axios'
-import { useNavigate } from 'react-router-dom'
 
 const TicketPage = () => {
     const [formData, setFormData] = useState({
@@ -9,19 +7,11 @@ const TicketPage = () => {
         progress: 0,
         timestamp: new Date().toISOString()
     })
-    const navigate = useNavigate()
 
     const editMode = false
 
-    const handleSubmit = async (e) => {
-        e.preventDefault()
-        if(!editMode){
-            const response = await axios.post('http://localhost:8000/tickets', {formData})
-            const success = response.status === 200
-            if(success){
-                navigate('/')
-            }
-        }
+    const handleSubmit = () => {
+        console.log('submitted')
     }
 
     const handleChange = (e) => {
@@ -87,7 +77,7 @@ const TicketPage = () => {
                                 type='radio'
                                 onChange={handleChange}
                                 value={1}
-                                checked={formData.priority == 1}
+                                checked={formData.priority === 1}
                             />
                             <label htmlFor='priority-2'>2</label>
                             <input
@@ -96,7 +86,7 @@ const TicketPage = () => {
                                 type='radio'
                                 onChange={handleChange}
                                 value={2}
-                                checked={formData.priority == 2}
+                                checked={formData.priority === 2}
                             />
                             <label htmlFor='priority-3'>3</label>
                             <input
@@ -105,7 +95,7 @@ const TicketPage = () => {
                                 type='radio'
                                 onChange={handleChange}
                                 value={3}
-                                checked={formData.priority == 3}
+                                checked={formData.priority === 3}
                             />
                             <label htmlFor='priority-4'>4</label>
                             <input
@@ -114,7 +104,7 @@ const TicketPage = () => {
                                 type='radio'
                                 onChange={handleChange}
                                 value={4}
-                                checked={formData.priority == 4}
+                                checked={formData.priority === 4}
                             />
                             <label htmlFor='priority-5'>5</label>
                             <input
@@ -123,7 +113,7 @@ const TicketPage = () => {
                                 type='radio'
                                 onChange={handleChange}
                                 value={5}
-                                checked={formData.priority == 5}
+                                checked={formData.priority === 5}
                             />
                         </div>
 
